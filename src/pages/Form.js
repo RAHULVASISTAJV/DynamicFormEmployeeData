@@ -97,7 +97,6 @@ function Form() {
             <br></br>
             <TextField
               name="dob"
-              label="Dob"
               type="date"
               variant="outlined"
               value={inputField.dob}
