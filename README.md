@@ -20,14 +20,15 @@ This Page consists of form which consists of different form fields to take detai
 
           npm install -g create-react-app
           npm run build
-          npm start
+          
  
     The project should now be built successfully on your machine
 
  5. To start the project run this command 
 
-          ng serve
+          npm start
 
     The above command can be used to run the project in future 
 	
-	Note:Please do check the difference in dependencies in package.json if not working.
+	Note: 1)Please do check the difference in dependencies in package.json if not working.
+	      2)The commands are put up considering the user is using npm it chamges in case of using other. 
