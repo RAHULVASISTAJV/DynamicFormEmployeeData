@@ -1,9 +1,9 @@
 # React 
-React is a JavaScript-based open-source front-end web framework mainly maintained by Google and by a community of individuals and corporations to address many of the challenges encountered in developing single-page applications. 
+React is an open-source front-end JavaScript library for building user interfaces or UI components. It is maintained by Facebook and a community of individual developers and companies. 
 
 # Dynamic Employee Data Form
 
-This Page consists of navbar with different information and buttons in it some of them will redirect it to your tab and some buttons load the server.
+This Page consists of form which consists of different form fields to take details from employes and story it in a string and display it on another page.
 
 # Basic Requirements
 
