@@ -98,6 +98,7 @@ function Form() {
             <TextField
               name="dob"
               label="Dob"
+              type="date"
               variant="outlined"
               value={inputField.dob}
               style = {{width: 460}}
