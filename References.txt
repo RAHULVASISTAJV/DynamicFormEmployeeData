@@ -1,0 +1,4 @@
+References:
+1) Have refered stackoverflow to handle some routing issues and also generating a json and downloading it.
+2) Have refered the react default website on importing some new packages and how to use it.
+3) Researched about how to add an extra field by clicking on the addition icon. 
