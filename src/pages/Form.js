@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -22,35 +22,30 @@ const useStyles = makeStyles((theme) => ({
 function Form() {
   const classes = useStyles()
   const [inputFields, setInputFields] = useState([
-    { id: uuidv4(),name:'', designation: '',dob:'' },
+    { id: uuidv4(),name:'', designation: '',type:[{type:'',phone:''}],dob:'',skills:[''] },
   ]);
-  const [type,setType] = useState([{type:'',phone:''}])
-  const [skills,setSkills] = useState([''])
   const history = useHistory();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("inputFields",inputFields);
-    
 
-  };
+
   const handleclick = (e) => {
+   
     e.preventDefault();
-    //this.props.router.push('/viewdata',{data: e.target.value});
-    let data = {
-        info: inputFields,
-        type: type,
-        skills: skills
-    };
-    history.push( {pathname: '/view',
-    state: { detail: data }});
 
-    setInputFields([
-        { id: uuidv4(),name:'', designation: '',dob:'' },
-      ])
+    let t = [];
+    inputFields.map((input,idx) => {
+      if(input.name && input.designation){
+        t.push(idx)
+      }
+    })
+    if(t.length === inputFields.length){
+      history.push( {pathname: '/view',
+      state: { detail: inputFields }});
+    } else {
+      alert("Please fill the name and designation fields")
+    }
+   
 
-      setType([{type:'',phone:''}])
-      setSkills([''])
   }
 
   const handleChangeInput = (id, event) => {
@@ -65,12 +60,10 @@ function Form() {
   }
 
 
-
-
   return (
     <Container>
       <h1>Employee Data</h1>
-      <form className={classes.root} onSubmit={handleSubmit}>
+      <form className={classes.root} >
         { inputFields.map((inputField,idx) => (
           <div key={inputField.id}>
             <TextField
@@ -105,10 +98,7 @@ function Form() {
               required
             />
             <br></br>
-           
-          </div>
-        )) }
-        {type.map((t,idx) => (
+            {inputField.type.map((t,i) => (
 <div>
 <TextField
               name="type"
@@ -116,20 +106,25 @@ function Form() {
               variant="outlined"
               value={t.type}
               onChange={event => {
-                  let item =[...type];
-                  item[idx].type = event.target.value;
-                  setType(item)
+                  let arr = [...inputFields]
+                  let item = arr[idx].type;
+                  item[i].type = event.target.value;
+                  arr[idx].type = item;
+                  setInputFields(arr)
               }}
             />
             <TextField
               name="phone"
               label="Phone"
+              type ="number"
               variant="outlined"
               value={t.phone}
               onChange={event =>{
-                let item =[...type];
-                item[idx].phone = event.target.value;
-                setType(item)
+                let arr = [...inputFields]
+                  let item = arr[idx].type;
+                  item[i].phone = event.target.value;
+                  arr[idx].type = item;
+                  setInputFields(arr)
               }}
             />
 
@@ -137,12 +132,12 @@ function Form() {
             
             <IconButton
               onClick={() => {
-                let item = [...type];
-                let temp ={
+                let arr = [...inputFields]
+                let temp = {
                     type: '', phone:''
                 }
-                item.push(temp);
-                setType(item)
+                arr[idx].type.push(temp);
+                setInputFields(arr)
               }}
             >
               <AddIcon />
@@ -151,7 +146,7 @@ function Form() {
             
 </div>
         ))}
-        {skills.map((s,i) => (
+        {inputField.skills.map((s,i) => (
             <div>
            <TextField
              name="skills"
@@ -159,34 +154,41 @@ function Form() {
              variant="outlined"
              value={s.skills}
              onChange={event => {
-
-                let item =[...skills];
-                item[i] = event.target.value;
-                setSkills(item)
+              let arr = [...inputFields]
+              let item = arr[idx].skills;
+              item[i] = event.target.value;
+              arr[idx].skills = item;
+              setInputFields(arr)
              }}
              style = {{width: 460}}
              required
            />
            <IconButton
                           onClick={() => {
-                            let item = [...skills];
-                          
-                            item.push('');
-                            setSkills(item)
+                            let arr = [...inputFields];
+                            arr[idx].skills.push('');
+                            setInputFields(arr)
                           }}
            >
              <AddIcon />
            </IconButton>
            </div>
         ))}
+          </div>
+        )) }
+       
         <Button
           className={classes.button}
           variant="contained" 
           color="primary" 
           type="submit" 
-          onClick={handleSubmit}>
-            Send
+          onClick={() => {
+            setInputFields([...inputFields, { id: uuidv4(),name:'', designation: '',type:[{type:'',phone:''}],dob:'',skills:[''] }, ])
+          }}
+          >
+            Add Employee
           </Button>
+
 
         <Button
         className={classes.button}
@@ -196,6 +198,7 @@ function Form() {
           onClick={handleclick}>
             ViewData
         </Button>
+
 
       </form>
     </Container>
